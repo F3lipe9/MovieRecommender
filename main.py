@@ -1,11 +1,11 @@
 import pandas as pd
 
+# Get User Inputs
 userMovie = str(input("What Movie Do You Want To Find Something Similar? "))
 userTime = int(input("Whats The Longest Movie Time Are You Feeling? "))
 
-
-
 def create_and_clean_Data():
+    # Read Data 
     df = pd.read_csv("IMDB-Movie-Data.csv")
 
     # Total Movies = 1000
@@ -14,6 +14,7 @@ def create_and_clean_Data():
 
     # Convert Runtime to numeric, coercing errors to NaN
     df["Runtime (Minutes)"] = pd.to_numeric(df["Runtime (Minutes)"], errors='coerce')
+
     return df.drop(columns=["Revenue (Millions)", "Director", "Actors", "Description", "Metascore", "Rank"])
 
 def findRecommendation(df):
@@ -46,10 +47,11 @@ def findRecommendation(df):
 
     return df[["Title", "Genre", "Runtime (Minutes)", "Rating"]]
 
+# Run Methods to get the Recommendations
 df = create_and_clean_Data()
 recommendations = findRecommendation(df)
 
-
+# Print Results
 print("\nRecommended Movies:")
 print(recommendations.to_string())
 
